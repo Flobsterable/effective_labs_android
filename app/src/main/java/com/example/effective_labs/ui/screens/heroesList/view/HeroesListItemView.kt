@@ -14,9 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.effective_labs.R
 import com.example.effective_labs.ui.HeroDataUi
+import com.example.effective_labs.ui.consts.heroesListItemViewPadding
 import com.example.effective_labs.utils.orientationModifier
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -46,7 +48,7 @@ fun HeroesListItemView(heroData: HeroDataUi) {
             contentScale = ContentScale.Crop
         )
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(heroesListItemViewPadding),
             verticalArrangement = Arrangement.Bottom
         ) {
             Text(
@@ -56,4 +58,10 @@ fun HeroesListItemView(heroData: HeroDataUi) {
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Preview() {
+    HeroesListItemView(heroData = HeroDataUi("Name", "Description", 0))
 }

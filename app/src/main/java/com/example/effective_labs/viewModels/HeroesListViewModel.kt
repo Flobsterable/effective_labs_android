@@ -1,13 +1,13 @@
 package com.example.effective_labs.viewModels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.effective_labs.ui.screens.heroesList.model.HeroesListViewState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class HeroesListViewModel : ViewModel() {
 
-
-    private val _viewState = MutableLiveData(HeroesListViewState())
-    val viewState: LiveData<HeroesListViewState> = _viewState
+    private val _viewState = MutableStateFlow(HeroesListViewState())
+    val viewState: StateFlow<HeroesListViewState> = _viewState.asStateFlow()
 }

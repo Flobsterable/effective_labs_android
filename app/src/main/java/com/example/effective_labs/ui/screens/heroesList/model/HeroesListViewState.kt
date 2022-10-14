@@ -17,7 +17,7 @@ data class HeroesListViewState(
         ),
         HeroDataUi(
             "Wolverine",
-            "He is a mutant who possesses animal-keen senses, enhanced physical capabilities, a powerful regenerative ability known as a healing factor, and three retractable claws in each hand",
+            "He is a mutant",
             R.drawable.wolverine
         ),
     )

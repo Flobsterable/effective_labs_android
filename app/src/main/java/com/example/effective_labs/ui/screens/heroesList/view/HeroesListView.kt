@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.effective_labs.R
 import com.example.effective_labs.ui.HeroDataUi
+import com.example.effective_labs.ui.consts.heroesListView
 
 @Composable
 fun HeroesListView(heroList: List<HeroDataUi>) {
@@ -24,7 +25,7 @@ fun HeroesListView(heroList: List<HeroDataUi>) {
             text = stringResource(id = R.string.heroes_list_screen_text_label),
             style = MaterialTheme.typography.h1,
             color = MaterialTheme.colors.onSecondary,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(heroesListView)
         )
         HeroesListRow(heroesList = heroList)
     }
