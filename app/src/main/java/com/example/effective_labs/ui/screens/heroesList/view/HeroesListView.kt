@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.effective_labs.R
-import com.example.effective_labs.ui.HeroData
+import com.example.effective_labs.ui.HeroDataUi
 
 @Composable
-fun HeroesListView(heroList: List<HeroData>) {
+fun HeroesListView(heroList: List<HeroDataUi>) {
     Column(
         modifier = Modifier
             .fillMaxSize(),

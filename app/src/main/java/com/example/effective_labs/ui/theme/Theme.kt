@@ -34,7 +34,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun Effective_labsTheme(
+fun EffectiveLabsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

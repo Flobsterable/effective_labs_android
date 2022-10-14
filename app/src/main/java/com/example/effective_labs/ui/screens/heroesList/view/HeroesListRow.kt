@@ -1,6 +1,5 @@
 package com.example.effective_labs.ui.screens.heroesList.view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,10 +7,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
-import com.example.effective_labs.ui.HeroData
+import com.example.effective_labs.ui.HeroDataUi
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import dev.chrisbanes.snapper.SnapOffsets
 import dev.chrisbanes.snapper.rememberLazyListSnapperLayoutInfo
@@ -19,17 +17,10 @@ import dev.chrisbanes.snapper.rememberSnapperFlingBehavior
 
 @OptIn(ExperimentalSnapperApi::class)
 @Composable
-fun HeroesListRow(heroesList: List<HeroData>) {
+fun HeroesListRow(heroesList: List<HeroDataUi>) {
 
     val lazyListState = rememberLazyListState()
     val layoutInfo = rememberLazyListSnapperLayoutInfo(lazyListState)
-
-    LaunchedEffect(lazyListState.isScrollInProgress) {
-        if (!lazyListState.isScrollInProgress) {
-            val snappedItem = layoutInfo.currentItem
-            Log.e("HeroesListRow", "$snappedItem")
-        }
-    }
 
     BoxWithConstraints {
         LazyRow(

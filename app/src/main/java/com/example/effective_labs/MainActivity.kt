@@ -11,7 +11,7 @@ import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.effective_labs.ui.screens.heroesList.HeroesListScreen
 import com.example.effective_labs.ui.screens.view.TransparentSystemBars
-import com.example.effective_labs.ui.theme.Effective_labsTheme
+import com.example.effective_labs.ui.theme.EffectiveLabsTheme
 import com.example.effective_labs.viewModels.HeroesListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            Effective_labsTheme {
+            EffectiveLabsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),

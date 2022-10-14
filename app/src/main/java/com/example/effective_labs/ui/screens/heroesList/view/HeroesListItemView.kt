@@ -7,7 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,12 +16,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.effective_labs.R
-import com.example.effective_labs.ui.HeroData
+import com.example.effective_labs.ui.HeroDataUi
 import com.example.effective_labs.utils.orientationModifier
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun HeroesListItemView(heroData: HeroData) {
+fun HeroesListItemView(heroData: HeroDataUi) {
 
     val modifier = orientationModifier(
         landscapeModifier = Modifier

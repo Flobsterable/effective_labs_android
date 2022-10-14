@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">effective_labs</string>
     <string name="heroes_list_screen_text_label">Choose your hero</string>
-    <string name="text_loading">Загрузка</string>
+    <string name="text_loading">Loading</string>
     <string name="text_error">Loading error. Check your internet connection</string>
 
     <string name="cd_button_back">Back</string>
