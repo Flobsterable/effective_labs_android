@@ -9,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.effective_labs"
+        applicationId "com.flobsterable.effective_labs"
         minSdk 23
         targetSdk 32
         versionCode 1
