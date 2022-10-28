@@ -8,17 +8,25 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ru.flobsterable.effectiveLabs.ui.screens.heroesList.HeroesListScreen
-import ru.flobsterable.effectiveLabs.ui.screens.view.TransparentSystemBars
+import ru.flobsterable.effectiveLabs.presentation.models.AppNavHost
+import ru.flobsterable.effectiveLabs.navigation.AppNavigation
+import ru.flobsterable.effectiveLabs.presentation.screens.components.TransparentSystemBars
 import ru.flobsterable.effectiveLabs.ui.theme.EffectiveLabsTheme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var navigation: AppNavigation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            val navController = rememberNavController()
+            navigation.navHostController = navController
             EffectiveLabsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -26,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.secondary
                 ) {
                     TransparentSystemBars()
-                    HeroesListScreen()
+                    AppNavHost(navController = navController)
                 }
             }
         }
