@@ -48,4 +48,16 @@ object Dependencies {
         const val androidJUnit = "androidx.test.ext:junit:1.1.3"
         const val espresso = "androidx.test.espresso:espresso-core:3.4.0"
     }
+
+    object Retrofit {
+        const val okHttpInterception = "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+        const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
+        const val converterScalars = "com.squareup.retrofit2:converter-scalars:2.9.0"
+        const val coroutinesAdapter ="com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+        const val converterMoshi = "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+        const val moshi = "com.squareup.moshi:moshi:1.14.0"
+        const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:1.12.0"
+        const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+    }
 }

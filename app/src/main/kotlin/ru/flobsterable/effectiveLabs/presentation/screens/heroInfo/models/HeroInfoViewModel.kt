@@ -1,12 +1,13 @@
 package ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.models
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ru.flobsterable.effectiveLabs.navigation.AppNavigation
 import ru.flobsterable.effectiveLabs.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.flobsterable.effectiveLabs.presentation.models.ViewSubState
 import ru.flobsterable.effectiveLabs.presentation.utils.EventHandler
@@ -18,8 +19,8 @@ class HeroInfoViewModel @Inject constructor(
     private val repository: Repository,
 ) : ViewModel(), EventHandler<HeroInfoEvent> {
 
-    private val _viewState = MutableLiveData(HeroInfoViewState())
-    val viewState: LiveData<HeroInfoViewState> = _viewState
+    private val _viewState = MutableStateFlow(HeroInfoViewState())
+    val viewState: StateFlow<HeroInfoViewState> = _viewState.asStateFlow()
 
     override fun obtainEvent(event: HeroInfoEvent) {
         when (event) {

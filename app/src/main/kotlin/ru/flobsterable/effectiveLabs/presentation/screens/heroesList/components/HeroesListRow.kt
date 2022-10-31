@@ -17,7 +17,7 @@ import ru.flobsterable.effectiveLabs.utils.IntCallback
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HeroesListRow(heroesList: List<HeroDataUi>, itemModifier: Modifier, onClick: IntCallback) {
+fun HeroesListRow(heroesList: List<HeroDataUi>, modifier: Modifier, onClick: IntCallback) {
 
     val lazyListState = rememberLazyListState()
     val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
@@ -32,7 +32,7 @@ fun HeroesListRow(heroesList: List<HeroDataUi>, itemModifier: Modifier, onClick:
 
             Layout(
                 content = {
-                    HeroesListItemView(item, itemModifier, onClick)
+                    HeroesListItemView(item, modifier, onClick)
                 },
                 measurePolicy = { measurables, constraints ->
                     val placeable = measurables.first().measure(constraints)

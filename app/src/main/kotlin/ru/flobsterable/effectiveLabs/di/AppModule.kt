@@ -1,10 +1,14 @@
 package ru.flobsterable.effectiveLabs.di
 
+import android.content.Context
 import ru.flobsterable.effectiveLabs.navigation.AppNavigationImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.flobsterable.effectiveLabs.data.network.NetworkService
+import ru.flobsterable.effectiveLabs.data.network.NetworkServiceImpl
 import ru.flobsterable.effectiveLabs.navigation.AppNavigation
 import ru.flobsterable.effectiveLabs.data.repository.Repository
 import ru.flobsterable.effectiveLabs.data.repository.RepositoryImpl
@@ -19,5 +23,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(): Repository = RepositoryImpl()
+    fun provideRepository(
+        @ApplicationContext
+        appContext: Context,
+        network: NetworkService,
+    ): Repository = RepositoryImpl(appContext,network)
+
+    @Singleton
+    @Provides
+    fun provideNetwork(): NetworkService = NetworkServiceImpl()
 }

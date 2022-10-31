@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ru.flobsterable.effectiveLabs.R
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListItemViewPadding
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListItemViewPadding
 import ru.flobsterable.effectiveLabs.presentation.models.HeroDataUi
 import ru.flobsterable.effectiveLabs.utils.IntCallback
 

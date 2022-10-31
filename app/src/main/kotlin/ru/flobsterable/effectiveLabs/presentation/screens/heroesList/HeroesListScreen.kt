@@ -11,12 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.flobsterable.effectiveLabs.R
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListColumnPaddingLandscape
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListColumnPaddingPortrait
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListImagePaddingLandscape
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListImagePaddingPortrait
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingPortrait
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListImagePaddingLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListImagePaddingPortrait
 import ru.flobsterable.effectiveLabs.presentation.models.ViewSubState
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListEvent
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.HeroesListView

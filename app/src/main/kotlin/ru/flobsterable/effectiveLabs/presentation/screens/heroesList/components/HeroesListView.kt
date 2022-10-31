@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.flobsterable.effectiveLabs.R
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListView
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListView
 import ru.flobsterable.effectiveLabs.presentation.models.HeroDataUi
 import ru.flobsterable.effectiveLabs.utils.IntCallback
 import ru.flobsterable.effectiveLabs.presentation.utils.orientationModifier
@@ -42,6 +42,6 @@ fun HeroesListView(heroList: List<HeroDataUi>, modifier: Modifier = Modifier, on
             color = MaterialTheme.colors.onSecondary,
             modifier = Modifier.padding(heroesListView)
         )
-        HeroesListRow(heroesList = heroList, itemModifier = itemModifier, onClick = onClick)
+        HeroesListRow(heroesList = heroList, modifier = itemModifier, onClick = onClick)
     }
 }

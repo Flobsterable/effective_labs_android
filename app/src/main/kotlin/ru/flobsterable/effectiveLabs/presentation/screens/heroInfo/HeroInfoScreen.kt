@@ -3,6 +3,7 @@ package ru.flobsterable.effectiveLabs.presentation.screens.heroInfo
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
 import ru.flobsterable.effectiveLabs.presentation.models.ViewSubState
@@ -17,13 +18,13 @@ import ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.models.HeroIn
 @Composable
 fun HeroInfoScreen(viewModel: HeroInfoViewModel = viewModel(), id: Int) {
 
-    val viewState = viewModel.viewState.observeAsState()
+    val viewState = viewModel.viewState.collectAsState()
 
     LaunchedEffect(key1 = Unit, block = {
         viewModel.obtainEvent(HeroInfoEvent.LoadHeroInfo(id))
     })
 
-    when (viewState.value!!.subState) {
+    when (viewState.value.subState) {
         ViewSubState.LOADING -> {
             LoadingView()
         }
@@ -31,7 +32,7 @@ fun HeroInfoScreen(viewModel: HeroInfoViewModel = viewModel(), id: Int) {
             ErrorView()
         }
         ViewSubState.COMPLETE -> {
-            HeroInfoView(viewState.value!!.heroData!!)
+            HeroInfoView(viewState.value.heroData!!)
         }
     }
 

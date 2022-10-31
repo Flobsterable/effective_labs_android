@@ -39,9 +39,7 @@ class HeroesListViewModel @Inject constructor(
             when (heroesList.isNotEmpty()) {
                 true -> {
                     _viewState.value = HeroesListViewState(
-                        subState = ViewSubState.COMPLETE,
-                        heroesList = heroesList,
-                    )
+                        subState = ViewSubState.COMPLETE, heroesList = heroesList)
                 }
                 false -> {
                     _viewState.value = HeroesListViewState(subState = ViewSubState.ERROR)
@@ -51,6 +49,6 @@ class HeroesListViewModel @Inject constructor(
     }
 
     private fun openHeroInfo(id: Int) {
-        navigation.navigateToWithArg(AppScreens.HeroInfoScreen, id.toString())
+        navigation.navigateTo(AppScreens.HeroInfoScreen, id.toString())
     }
 }
