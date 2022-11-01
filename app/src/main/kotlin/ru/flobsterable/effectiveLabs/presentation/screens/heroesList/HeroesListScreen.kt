@@ -11,18 +11,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.flobsterable.effectiveLabs.R
 import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingLandscape
 import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingPortrait
 import ru.flobsterable.effectiveLabs.ui.consts.heroesListImagePaddingLandscape
 import ru.flobsterable.effectiveLabs.ui.consts.heroesListImagePaddingPortrait
-import ru.flobsterable.effectiveLabs.presentation.models.ViewSubState
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListEvent
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.HeroesListView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
+import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListUiState
 import ru.flobsterable.effectiveLabs.presentation.utils.orientationModifier
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListViewModel
 
@@ -33,7 +32,7 @@ private const val PORTRAIT_IMAGE_WIDTH = 1 / 3f
 @Composable
 fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
 
-    val viewState = viewModel.viewState.collectAsState()
+    val uiState = viewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = Unit, block = {
         viewModel.obtainEvent(HeroesListEvent.LoadHeroesList)
@@ -59,18 +58,13 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
             contentDescription = stringResource(id = R.string.cd_main_banner)
         )
 
-        when (viewState.value.subState) {
-            ViewSubState.LOADING -> {
-                LoadingView()
-            }
-            ViewSubState.ERROR -> {
-                ErrorView()
-            }
-            ViewSubState.COMPLETE -> {
-                HeroesListView(viewState.value.heroesList) {
+        when(uiState.value){
+            is HeroesListUiState.Error -> ErrorView()
+            HeroesListUiState.Loading -> LoadingView()
+            is HeroesListUiState.Success -> HeroesListView(
+                (uiState.value as HeroesListUiState.Success).heroesList) {
                     viewModel.obtainEvent(HeroesListEvent.OpenHeroInfo(it))
-                }
-            }
+               }
         }
     }
 }

@@ -4,13 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.flobsterable.effectiveLabs.navigation.AppNavigation
 import ru.flobsterable.effectiveLabs.navigation.AppScreens
 import ru.flobsterable.effectiveLabs.data.repository.Repository
-import ru.flobsterable.effectiveLabs.presentation.models.ViewSubState
 import ru.flobsterable.effectiveLabs.presentation.utils.EventHandler
 import javax.inject.Inject
 
@@ -20,8 +18,8 @@ class HeroesListViewModel @Inject constructor(
     private val repository: Repository,
 ) : ViewModel(), EventHandler<HeroesListEvent> {
 
-    private val _viewState = MutableStateFlow(HeroesListViewState())
-    val viewState: StateFlow<HeroesListViewState> = _viewState.asStateFlow()
+    private val _uiState = MutableStateFlow<HeroesListUiState>(HeroesListUiState.Loading)
+    val uiState = _uiState.asStateFlow()
 
     override fun obtainEvent(event: HeroesListEvent) {
         when (event) {
@@ -31,18 +29,17 @@ class HeroesListViewModel @Inject constructor(
     }
 
     private fun getHeroesList() {
+        _uiState.value = HeroesListUiState.Loading
 
-        _viewState.value = HeroesListViewState(subState = ViewSubState.LOADING)
         viewModelScope.launch {
             val heroesList = repository.getHeroesList()
 
             when (heroesList.isNotEmpty()) {
                 true -> {
-                    _viewState.value = HeroesListViewState(
-                        subState = ViewSubState.COMPLETE, heroesList = heroesList)
+                    _uiState.value = HeroesListUiState.Success(heroesList)
                 }
                 false -> {
-                    _viewState.value = HeroesListViewState(subState = ViewSubState.ERROR)
+                    _uiState.value = HeroesListUiState.Error
                 }
             }
         }
