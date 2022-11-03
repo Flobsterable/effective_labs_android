@@ -12,5 +12,5 @@ val heroesListView = PaddingValues(bottom = 16.dp)
 
 const val ITEM_RATIO_WIDTH_PORTRAIT = 0.7
 const val ITEM_RATIO_HEIGHT_PORTRAIT = 0.8
-const val ITEM_RATIO_WIDTH_LANDSCAPE = 0.5
+const val ITEM_RATIO_WIDTH_LANDSCAPE = 0.6
 const val ITEM_RATIO_HEIGHT_LANDSCAPE = 0.7

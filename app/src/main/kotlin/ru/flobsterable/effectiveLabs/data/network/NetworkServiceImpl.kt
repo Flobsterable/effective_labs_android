@@ -1,5 +1,6 @@
 package ru.flobsterable.effectiveLabs.data.network
 
+import android.util.Log
 import ru.flobsterable.effectiveLabs.data.network.model.Result
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -8,9 +9,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import ru.flobsterable.effectiveLabs.data.models.Resource
+import java.io.IOException
 import java.util.concurrent.TimeUnit
-
-const val OK_REQUEST_CODE = 200
 
 class NetworkServiceImpl: NetworkService {
 
@@ -41,21 +42,25 @@ class NetworkServiceImpl: NetworkService {
 
     private val networkService = retrofit.create(ServerApi::class.java)
 
-    override suspend fun getCharacterList(): List<Result> {
+    override suspend fun getCharacterList(): Resource<List<Result>> {
 
-        val request = networkService.getHeroesList(apikey, hash, 1)
-        val list = request.body()?.data?.results
-
-        return when (request.code()) {
-            OK_REQUEST_CODE -> list!!
-            else -> emptyList()
+        return try {
+            Resource.Success(
+                data = networkService.getHeroesList(apikey, hash, 1).body()!!.data.results
+            )
+        } catch (e: IOException) {
+            Log.e("","$e")
+            Resource.Error(e.message ?: "An unknown error occurred.")
         }
     }
-    override suspend fun getCharacterInfo(id: Int): Result? {
-        val request = networkService.getHeroInfo(id = id.toString(), apikey, hash, 1)
-        return when (request.code()) {
-            OK_REQUEST_CODE -> request.body()?.data?.results?.get(0)
-            else -> null
+    override suspend fun getCharacterInfo(id: Int): Resource<Result> {
+
+        return try {
+            Resource.Success(
+                data = networkService.getHeroInfo(id = id.toString(), apikey, hash, 1).body()!!.data.results[0]
+            )
+        } catch (e: IOException) {
+            Resource.Error(e.message ?: "An unknown error occurred.")
         }
     }
 }

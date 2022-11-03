@@ -4,11 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.flobsterable.effectiveLabs.data.models.Resource
 import ru.flobsterable.effectiveLabs.navigation.AppNavigation
 import ru.flobsterable.effectiveLabs.navigation.AppScreens
 import ru.flobsterable.effectiveLabs.data.repository.Repository
+import ru.flobsterable.effectiveLabs.presentation.models.StateUi
 import ru.flobsterable.effectiveLabs.presentation.utils.EventHandler
 import javax.inject.Inject
 
@@ -18,8 +22,8 @@ class HeroesListViewModel @Inject constructor(
     private val repository: Repository,
 ) : ViewModel(), EventHandler<HeroesListEvent> {
 
-    private val _uiState = MutableStateFlow<HeroesListUiState>(HeroesListUiState.Loading)
-    val uiState = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(HeroesListUiState.Empty)
+    val uiState : StateFlow<HeroesListUiState> = _uiState.asStateFlow()
 
     override fun obtainEvent(event: HeroesListEvent) {
         when (event) {
@@ -29,18 +33,13 @@ class HeroesListViewModel @Inject constructor(
     }
 
     private fun getHeroesList() {
-        _uiState.value = HeroesListUiState.Loading
 
         viewModelScope.launch {
-            val heroesList = repository.getHeroesList()
 
-            when (heroesList.isNotEmpty()) {
-                true -> {
-                    _uiState.value = HeroesListUiState.Success(heroesList)
-                }
-                false -> {
-                    _uiState.value = HeroesListUiState.Error
-                }
+            when(val heroesList = repository.getHeroesList()){
+                is Resource.Error -> _uiState.update { it.copy(stateUi = StateUi.Error)}
+                is Resource.Success -> _uiState.update {
+                    it.copy(stateUi = StateUi.Success, heroesList = heroesList.data!!)}
             }
         }
     }

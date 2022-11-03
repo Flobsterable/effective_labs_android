@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.flobsterable.effectiveLabs.R
+import ru.flobsterable.effectiveLabs.presentation.models.StateUi
 import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingLandscape
 import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingPortrait
 import ru.flobsterable.effectiveLabs.ui.consts.heroesListImagePaddingLandscape
@@ -21,7 +22,6 @@ import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.Hero
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.HeroesListView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
-import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListUiState
 import ru.flobsterable.effectiveLabs.presentation.utils.orientationValue
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListViewModel
 
@@ -58,13 +58,12 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
             contentDescription = stringResource(id = R.string.cd_main_banner)
         )
 
-        when(uiState.value){
-            is HeroesListUiState.Error -> ErrorView()
-            HeroesListUiState.Loading -> LoadingView()
-            is HeroesListUiState.Success -> HeroesListView(
-                (uiState.value as HeroesListUiState.Success).heroesList) {
-                    viewModel.obtainEvent(HeroesListEvent.OpenHeroInfo(it))
-               }
+        when(uiState.value.stateUi){
+            StateUi.Error -> ErrorView()
+            StateUi.Loading -> LoadingView()
+            StateUi.Success -> HeroesListView(uiState.value.heroesList) {
+                viewModel.obtainEvent(HeroesListEvent.OpenHeroInfo(it))
+            }
         }
     }
 }

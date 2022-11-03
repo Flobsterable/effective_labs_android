@@ -24,10 +24,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRepository(
-        @ApplicationContext
-        appContext: Context,
         network: NetworkService,
-    ): Repository = RepositoryImpl(appContext,network)
+    ): Repository = RepositoryImpl(network)
 
     @Singleton
     @Provides

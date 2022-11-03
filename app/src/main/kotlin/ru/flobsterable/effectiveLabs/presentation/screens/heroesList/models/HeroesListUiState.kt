@@ -1,11 +1,15 @@
 package ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models
 
 import ru.flobsterable.effectiveLabs.presentation.models.HeroDataUi
+import ru.flobsterable.effectiveLabs.presentation.models.StateUi
 
-sealed class HeroesListUiState {
-    data class Success(val heroesList: List<HeroDataUi>) : HeroesListUiState()
-    object Error : HeroesListUiState()
-    object Loading : HeroesListUiState()
+data class HeroesListUiState (
+    val heroesList: List<HeroDataUi> = emptyList(),
+    val stateUi: StateUi = StateUi.Loading
+) {
+    companion object {
+        val Empty = HeroesListUiState()
+    }
 }
 
 

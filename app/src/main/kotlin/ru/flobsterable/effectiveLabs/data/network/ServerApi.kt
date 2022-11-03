@@ -1,5 +1,6 @@
 package ru.flobsterable.effectiveLabs.data.network
 
+import kotlinx.coroutines.flow.Flow
 import ru.flobsterable.effectiveLabs.data.network.model.CharacterListData
 import retrofit2.Response
 import retrofit2.http.GET

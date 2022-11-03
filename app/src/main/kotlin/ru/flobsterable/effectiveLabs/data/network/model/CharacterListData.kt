@@ -1,5 +1,8 @@
 package ru.flobsterable.effectiveLabs.data.network.model
 
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class CharacterListData(
     val attributionHTML: String,
     val attributionText: String,
