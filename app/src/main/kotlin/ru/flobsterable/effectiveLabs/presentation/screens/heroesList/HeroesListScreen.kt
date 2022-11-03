@@ -22,7 +22,7 @@ import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.
 import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListUiState
-import ru.flobsterable.effectiveLabs.presentation.utils.orientationModifier
+import ru.flobsterable.effectiveLabs.presentation.utils.orientationValue
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListViewModel
 
 private const val LANDSCAPE_IMAGE_WIDTH = 0.2f
@@ -39,21 +39,21 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
     })
 
     Column(
-        modifier = orientationModifier(
-            landscapeModifier = Modifier.padding(heroesListColumnPaddingLandscape),
-            portraitModifier = Modifier.padding(heroesListColumnPaddingPortrait)
-        ),
+        modifier = orientationValue(
+            landscapeValue = Modifier.padding(heroesListColumnPaddingLandscape),
+            portraitValue = Modifier.padding(heroesListColumnPaddingPortrait)
+        ) as Modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
-            modifier = orientationModifier(
-                landscapeModifier = Modifier
+            modifier = orientationValue(
+                landscapeValue = Modifier
                     .fillMaxWidth(LANDSCAPE_IMAGE_WIDTH)
                     .padding(heroesListImagePaddingLandscape),
-                portraitModifier = Modifier
+                portraitValue = Modifier
                     .fillMaxWidth(PORTRAIT_IMAGE_WIDTH)
                     .padding(heroesListImagePaddingPortrait)
-            ),
+            ) as Modifier,
             painter = painterResource(id = R.drawable.marvel),
             contentDescription = stringResource(id = R.string.cd_main_banner)
         )
