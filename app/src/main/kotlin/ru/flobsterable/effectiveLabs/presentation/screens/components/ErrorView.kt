@@ -16,7 +16,7 @@ import ru.flobsterable.effectiveLabs.R
 @Composable
 fun ErrorView() {
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier.fillMaxSize().padding(36.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {

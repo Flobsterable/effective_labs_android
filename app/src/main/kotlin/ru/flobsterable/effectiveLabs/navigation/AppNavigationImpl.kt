@@ -1,10 +1,9 @@
 package ru.flobsterable.effectiveLabs.navigation
 
 import androidx.navigation.NavHostController
-import ru.flobsterable.effectiveLabs.navigation.AppNavigation
-import ru.flobsterable.effectiveLabs.navigation.AppScreens
+import javax.inject.Inject
 
-class AppNavigationImpl : AppNavigation {
+class AppNavigationImpl @Inject constructor() : AppNavigation {
     override var navHostController: NavHostController? = null
 
     override fun navigateTo(appScreen: AppScreens, arg: String?) {

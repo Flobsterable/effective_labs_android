@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.flobsterable.effectiveLabs.data.models.Resource
@@ -36,12 +37,15 @@ class HeroInfoViewModel @Inject constructor(
     }
 
     private fun getHeroInfo(id: Int) {
-
         viewModelScope.launch {
-
-            when(val heroData = repository.getHeroInfo(id)){
-                is Resource.Error -> _uiState.update { it.copy(stateUi = StateUi.Error)}
-                is Resource.Success -> _uiState.update { it.copy(stateUi = StateUi.Success, heroInfo = heroData.data)}
+            repository.getHeroInfo(id).catch {
+                _uiState.update { it.copy(stateUi = StateUi.Error) }
+            }.collect{ resource->
+                when(resource) {
+                    is Resource.Error -> _uiState.update { it.copy(stateUi = StateUi.Error) }
+                    is Resource.Success -> _uiState.update { it.copy(stateUi = StateUi.Success,
+                        heroInfo = resource.data)}
+                }
             }
         }
     }
