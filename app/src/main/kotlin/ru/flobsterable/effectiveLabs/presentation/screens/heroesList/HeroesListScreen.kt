@@ -13,16 +13,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.flobsterable.effectiveLabs.R
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListColumnPaddingLandscape
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListColumnPaddingPortrait
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListImagePaddingLandscape
-import ru.flobsterable.effectiveLabs.presentation.consts.heroesListImagePaddingPortrait
-import ru.flobsterable.effectiveLabs.presentation.models.ViewSubState
+import ru.flobsterable.effectiveLabs.presentation.models.StateUi
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingPortrait
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListImagePaddingLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListImagePaddingPortrait
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListEvent
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.HeroesListView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
-import ru.flobsterable.effectiveLabs.presentation.utils.orientationModifier
+import ru.flobsterable.effectiveLabs.presentation.utils.orientationValue
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListViewModel
 
 private const val LANDSCAPE_IMAGE_WIDTH = 0.2f
@@ -32,43 +32,37 @@ private const val PORTRAIT_IMAGE_WIDTH = 1 / 3f
 @Composable
 fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
 
-    val viewState = viewModel.viewState.collectAsState()
+    val uiState = viewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = Unit, block = {
         viewModel.obtainEvent(HeroesListEvent.LoadHeroesList)
     })
 
     Column(
-        modifier = orientationModifier(
-            landscapeModifier = Modifier.padding(heroesListColumnPaddingLandscape),
-            portraitModifier = Modifier.padding(heroesListColumnPaddingPortrait)
-        ),
+        modifier = orientationValue(
+            landscapeValue = Modifier.padding(heroesListColumnPaddingLandscape),
+            portraitValue = Modifier.padding(heroesListColumnPaddingPortrait)
+        ) as Modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
-            modifier = orientationModifier(
-                landscapeModifier = Modifier
+            modifier = orientationValue(
+                landscapeValue = Modifier
                     .fillMaxWidth(LANDSCAPE_IMAGE_WIDTH)
                     .padding(heroesListImagePaddingLandscape),
-                portraitModifier = Modifier
+                portraitValue = Modifier
                     .fillMaxWidth(PORTRAIT_IMAGE_WIDTH)
                     .padding(heroesListImagePaddingPortrait)
-            ),
+            ) as Modifier,
             painter = painterResource(id = R.drawable.marvel),
             contentDescription = stringResource(id = R.string.cd_main_banner)
         )
 
-        when (viewState.value.subState) {
-            ViewSubState.LOADING -> {
-                LoadingView()
-            }
-            ViewSubState.ERROR -> {
-                ErrorView()
-            }
-            ViewSubState.COMPLETE -> {
-                HeroesListView(viewState.value.heroesList) {
-                    viewModel.obtainEvent(HeroesListEvent.OpenHeroInfo(it))
-                }
+        when(uiState.value.stateUi){
+            StateUi.Error -> ErrorView()
+            StateUi.Loading -> LoadingView()
+            StateUi.Success -> HeroesListView(uiState.value.heroesList) {
+                viewModel.obtainEvent(HeroesListEvent.OpenHeroInfo(it))
             }
         }
     }

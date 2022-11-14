@@ -60,6 +60,16 @@ dependencies {
     implementation (Dependencies.Hilt.hilt)
     kapt (Dependencies.Hilt.compiler)
 
+    implementation (Dependencies.Retrofit.okHttpInterception)
+    implementation (Dependencies.Retrofit.retrofit)
+    implementation (Dependencies.Retrofit.converterScalars)
+    implementation (Dependencies.Retrofit.coroutinesAdapter)
+    implementation (Dependencies.Retrofit.converterMoshi)
+
+    implementation(Dependencies.Retrofit.moshi)
+    implementation(Dependencies.Retrofit.moshiKotlin)
+    kapt(Dependencies.Retrofit.moshiCompiler)
+
     implementation (Dependencies.Android.coreKtx)
     implementation (Dependencies.Compose.ui)
     implementation (Dependencies.Compose.material)

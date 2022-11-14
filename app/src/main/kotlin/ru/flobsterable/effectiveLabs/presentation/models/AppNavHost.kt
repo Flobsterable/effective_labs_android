@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import ru.flobsterable.effectiveLabs.navigation.AppScreens
 import ru.flobsterable.effectiveLabs.navigation.DETAIL_ARGUMENT_KEY
+import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.HeroInfoScreen
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.HeroesListScreen
 import ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.models.HeroInfoViewModel
