@@ -14,19 +14,22 @@ import ru.flobsterable.effectiveLabs.navigation.AppNavigation
 import ru.flobsterable.effectiveLabs.navigation.AppScreens
 import ru.flobsterable.effectiveLabs.data.repository.Repository
 import ru.flobsterable.effectiveLabs.presentation.models.StateUi
-import ru.flobsterable.effectiveLabs.presentation.utils.EventHandler
 import javax.inject.Inject
 
 @HiltViewModel
 class HeroesListViewModel @Inject constructor(
     private val navigation: AppNavigation,
     private val repository: Repository,
-) : ViewModel(), EventHandler<HeroesListEvent> {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HeroesListUiState.Empty)
     val uiState : StateFlow<HeroesListUiState> = _uiState.asStateFlow()
 
-    override fun obtainEvent(event: HeroesListEvent) {
+    init {
+        getHeroesList()
+    }
+
+    fun sendEvent(event: HeroesListEvent) {
         when (event) {
             HeroesListEvent.LoadHeroesList -> getHeroesList()
             is HeroesListEvent.OpenHeroInfo -> openHeroInfo(event.value)
@@ -41,7 +44,7 @@ class HeroesListViewModel @Inject constructor(
                 when(resource){
                     is Resource.Error -> _uiState.update { it.copy(stateUi = StateUi.Error) }
                     is Resource.Success -> _uiState.update {
-                        it.copy(stateUi = StateUi.Success, heroesList = resource.data!!) }
+                        it.copy(stateUi = StateUi.Success, heroesList = resource.data) }
                 }
             }
         }

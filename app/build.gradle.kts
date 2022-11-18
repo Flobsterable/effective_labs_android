@@ -70,6 +70,11 @@ dependencies {
     implementation(Dependencies.Retrofit.moshiKotlin)
     kapt(Dependencies.Retrofit.moshiCompiler)
 
+    implementation(Dependencies.Room.room)
+    annotationProcessor(Dependencies.Room.annotationProcessor)
+    kapt(Dependencies.Room.kapt)
+    implementation(Dependencies.Room.ktx)
+
     implementation (Dependencies.Android.coreKtx)
     implementation (Dependencies.Compose.ui)
     implementation (Dependencies.Compose.material)

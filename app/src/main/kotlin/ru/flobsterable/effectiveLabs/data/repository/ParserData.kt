@@ -1,31 +1,38 @@
 package ru.flobsterable.effectiveLabs.data.repository
 
+import ru.flobsterable.effectiveLabs.data.database.entity.HeroDataEntity
 import ru.flobsterable.effectiveLabs.data.network.model.Result
 import ru.flobsterable.effectiveLabs.presentation.models.HeroDataUi
 
 interface ParserData {
-    fun List<Result>.parserHeroDataList(): List<HeroDataUi> {
-        val resultList = mutableListOf<HeroDataUi>()
-        for (item in this) {
-            resultList.add(item.parserHeroData()) }
-        return resultList
+    fun List<Result>.parserHeroDataList(): List<HeroDataEntity> {
+        return this.map { it.parserHeroData() }
     }
 
-    fun Result.parserHeroData(): HeroDataUi {
+    fun Result.parserHeroData(): HeroDataEntity {
         val url = (this.thumbnail.path + "." + this.thumbnail.extension).toHttpsPrefix()
 
-        return HeroDataUi(
+        return HeroDataEntity(
             id = this.id.toInt(),
             name = this.name,
             description = this.description,
-            imageUrl = url
+            uriImage = url
+        )
+    }
+
+    fun List<HeroDataEntity>.parserHeroesDataUi(): List<HeroDataUi> {
+        return this.map { it.parserHeroDataUi() }
+    }
+
+    fun HeroDataEntity.parserHeroDataUi(): HeroDataUi {
+        return HeroDataUi(
+            id = this.id,
+            name = this.name,
+            description = this.description,
+            imageUrl = this.uriImage
         )
     }
 
     private fun String.toHttpsPrefix(): String =
-        if (isNotEmpty() && !startsWith("https://") && !startsWith("http://")) {
-            "https://$this"
-        } else if (startsWith("http://")) {
-            replace("http://", "https://")
-        } else this
+        if (startsWith("http://")) replace("http://", "https://") else this
 }
