@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-internal abstract class CallDelegate<In, Out>(protected val proxy: Call<In>) : Call<Out> {
+internal abstract class Wrapper<In, Out>(protected val proxy: Call<In>) : Call<Out> {
 
     override fun execute(): Response<Out> = throw NotImplementedError()
 

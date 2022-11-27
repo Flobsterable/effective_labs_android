@@ -2,7 +2,9 @@ package ru.flobsterable.effectiveLabs.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import ru.flobsterable.effectiveLabs.data.database.DataDao
 import ru.flobsterable.effectiveLabs.data.database.entity.HeroDataEntity
 import ru.flobsterable.effectiveLabs.data.models.Resource
@@ -32,7 +34,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun getHeroInfo(id: Int): Flow<Resource<HeroDataUi>> = flow {
-        val data = database.getCharacterInfo(id).first()
+        val data = database.getCharacterInfo(id).firstOrNull()
         if (data!=null)
             emit(Resource.Success(data.parserHeroDataUi()))
 
@@ -40,7 +42,7 @@ class RepositoryImpl @Inject constructor(
             is Resource.Error -> if(data==null) emit(Resource.Error(result.message))
             is Resource.Success -> {
                 database.insertHeroData(result.data.parserHeroData())
-                database.getCharacterInfo(id).collect{ emit(Resource.Success(it.parserHeroDataUi())) }
+                database.getCharacterInfo(id).map{ emit(Resource.Success(it.parserHeroDataUi())) }
             }
         }
     }

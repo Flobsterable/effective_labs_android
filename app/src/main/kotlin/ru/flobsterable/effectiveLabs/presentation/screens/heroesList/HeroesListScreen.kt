@@ -4,9 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +21,6 @@ import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.Hero
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.HeroesListView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
-import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListUiState
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListViewModel
 import ru.flobsterable.effectiveLabs.presentation.utils.isLandscape
 
@@ -35,10 +32,6 @@ private const val PORTRAIT_IMAGE_WIDTH = 1 / 3f
 fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
 
     val uiState = viewModel.uiState.collectAsState()
-
-    LaunchedEffect(key1 = Unit, block = {
-        viewModel.sendEvent(HeroesListEvent.LoadHeroesList)
-    })
 
     Column(
         modifier = when(isLandscape()){

@@ -6,7 +6,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.flobsterable.effectiveLabs.data.models.Resource
 
-internal class ResultCall<T>(proxy: Call<T>) : CallDelegate<T, Resource<T>>(proxy) {
+internal class ResultCall<T>(proxy: Call<T>) : Wrapper<T, Resource<T>>(proxy) {
 
     override fun enqueueImpl(callback: Callback<Resource<T>>) {
         proxy.enqueue(ResultCallback(this, callback))
