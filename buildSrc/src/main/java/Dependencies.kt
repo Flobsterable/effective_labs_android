@@ -60,4 +60,12 @@ object Dependencies {
         const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:1.12.0"
         const val moshiCompiler = "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
     }
+
+    object Room {
+        private const val version = "2.4.3"
+        const val room = "androidx.room:room-runtime:$version"
+        const val annotationProcessor = "androidx.room:room-compiler:$version"
+        const val kapt = "androidx.room:room-compiler:$version"
+        const val ktx = "androidx.room:room-ktx:$version"
+    }
 }

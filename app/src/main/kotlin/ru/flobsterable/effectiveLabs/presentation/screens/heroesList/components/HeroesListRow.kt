@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import ru.flobsterable.effectiveLabs.presentation.models.HeroDataUi
-import ru.flobsterable.effectiveLabs.presentation.utils.orientationValue
+import ru.flobsterable.effectiveLabs.presentation.utils.isLandscape
 import ru.flobsterable.effectiveLabs.ui.consts.ITEM_RATIO_HEIGHT_LANDSCAPE
 import ru.flobsterable.effectiveLabs.ui.consts.ITEM_RATIO_HEIGHT_PORTRAIT
 import ru.flobsterable.effectiveLabs.ui.consts.ITEM_RATIO_WIDTH_LANDSCAPE
@@ -31,8 +31,8 @@ fun HeroesListRow(heroesList: List<HeroDataUi>, onClick: IntCallback) {
     val maxWidth = LocalConfiguration.current.screenWidthDp
     val maxHeight = LocalConfiguration.current.screenHeightDp
 
-    val itemScreenRatioWidth = orientationValue(ITEM_RATIO_WIDTH_LANDSCAPE, ITEM_RATIO_WIDTH_PORTRAIT) as Double
-    val itemScreenRatioHeight = orientationValue(ITEM_RATIO_HEIGHT_LANDSCAPE, ITEM_RATIO_HEIGHT_PORTRAIT) as Double
+    val itemScreenRatioWidth = if(isLandscape()) ITEM_RATIO_WIDTH_LANDSCAPE else  ITEM_RATIO_WIDTH_PORTRAIT
+    val itemScreenRatioHeight = if(isLandscape()) ITEM_RATIO_HEIGHT_LANDSCAPE else ITEM_RATIO_HEIGHT_PORTRAIT
 
     val itemWidth = (maxWidth*itemScreenRatioWidth)
     val itemHeight = (maxHeight*itemScreenRatioHeight)

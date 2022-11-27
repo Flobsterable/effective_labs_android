@@ -19,7 +19,7 @@ fun HeroInfoScreen(viewModel: HeroInfoViewModel = viewModel(), id: Int) {
     val uiState = viewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = Unit, block = {
-        viewModel.obtainEvent(HeroInfoEvent.LoadHeroInfo(id))
+        viewModel.sendEvent(HeroInfoEvent.LoadHeroInfo(id))
     })
 
     when (uiState.value.stateUi) {
@@ -29,6 +29,6 @@ fun HeroInfoScreen(viewModel: HeroInfoViewModel = viewModel(), id: Int) {
     }
 
     HeroScreenTopBar {
-        viewModel.obtainEvent(HeroInfoEvent.PopBack)
+        viewModel.sendEvent(HeroInfoEvent.PopBack)
     }
 }

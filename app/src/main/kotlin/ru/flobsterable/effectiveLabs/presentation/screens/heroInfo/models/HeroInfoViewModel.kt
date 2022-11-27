@@ -13,19 +13,18 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.flobsterable.effectiveLabs.data.models.Resource
 import ru.flobsterable.effectiveLabs.presentation.models.StateUi
-import ru.flobsterable.effectiveLabs.presentation.utils.EventHandler
 import javax.inject.Inject
 
 @HiltViewModel
 class HeroInfoViewModel @Inject constructor(
     private val navigation: AppNavigation,
     private val repository: Repository,
-) : ViewModel(), EventHandler<HeroInfoEvent> {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HeroInfoUiState.Empty)
     val uiState: StateFlow<HeroInfoUiState> = _uiState.asStateFlow()
 
-    override fun obtainEvent(event: HeroInfoEvent) {
+    fun sendEvent(event: HeroInfoEvent) {
         when (event) {
             is HeroInfoEvent.LoadHeroInfo -> getHeroInfo(event.value)
             HeroInfoEvent.PopBack -> popBack()

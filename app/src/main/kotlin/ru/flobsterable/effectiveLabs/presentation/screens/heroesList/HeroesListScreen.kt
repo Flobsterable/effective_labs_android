@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,8 +21,8 @@ import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.Hero
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.HeroesListView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
-import ru.flobsterable.effectiveLabs.presentation.utils.orientationValue
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListViewModel
+import ru.flobsterable.effectiveLabs.presentation.utils.isLandscape
 
 private const val LANDSCAPE_IMAGE_WIDTH = 0.2f
 private const val PORTRAIT_IMAGE_WIDTH = 1 / 3f
@@ -34,26 +33,20 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
 
     val uiState = viewModel.uiState.collectAsState()
 
-    LaunchedEffect(key1 = Unit, block = {
-        viewModel.obtainEvent(HeroesListEvent.LoadHeroesList)
-    })
-
     Column(
-        modifier = orientationValue(
-            landscapeValue = Modifier.padding(heroesListColumnPaddingLandscape),
-            portraitValue = Modifier.padding(heroesListColumnPaddingPortrait)
-        ) as Modifier,
+        modifier = when(isLandscape()){
+            true -> Modifier.padding(heroesListColumnPaddingLandscape)
+            false -> Modifier.padding(heroesListColumnPaddingPortrait)},
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
-            modifier = orientationValue(
-                landscapeValue = Modifier
+            modifier = when(isLandscape()) {
+                true -> Modifier
                     .fillMaxWidth(LANDSCAPE_IMAGE_WIDTH)
-                    .padding(heroesListImagePaddingLandscape),
-                portraitValue = Modifier
+                    .padding(heroesListImagePaddingLandscape)
+                false -> Modifier
                     .fillMaxWidth(PORTRAIT_IMAGE_WIDTH)
-                    .padding(heroesListImagePaddingPortrait)
-            ) as Modifier,
+                    .padding(heroesListImagePaddingPortrait) },
             painter = painterResource(id = R.drawable.marvel),
             contentDescription = stringResource(id = R.string.cd_main_banner)
         )
@@ -62,7 +55,7 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
             StateUi.Error -> ErrorView()
             StateUi.Loading -> LoadingView()
             StateUi.Success -> HeroesListView(uiState.value.heroesList) {
-                viewModel.obtainEvent(HeroesListEvent.OpenHeroInfo(it))
+                viewModel.sendEvent(HeroesListEvent.OpenHeroInfo(it))
             }
         }
     }
