@@ -12,7 +12,6 @@ import ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.components.He
 import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.models.HeroInfoViewModel
 
-
 @Composable
 fun HeroInfoScreen(viewModel: HeroInfoViewModel = viewModel(), id: Int) {
 

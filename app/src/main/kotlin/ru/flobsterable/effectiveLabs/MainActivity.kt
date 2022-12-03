@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import ru.flobsterable.effectiveLabs.presentation.models.AppNavHost
 import ru.flobsterable.effectiveLabs.navigation.AppNavigation
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            FirebaseMessaging.getInstance().subscribeToTopic("all")
             val navController = rememberNavController()
             navigation.navHostController = navController
             EffectiveLabsTheme {

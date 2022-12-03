@@ -6,6 +6,7 @@ plugins {
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("io.gitlab.arturbosch.detekt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -82,6 +83,10 @@ dependencies {
     annotationProcessor(Dependencies.Room.annotationProcessor)
     kapt(Dependencies.Room.kapt)
     implementation(Dependencies.Room.ktx)
+
+    implementation(platform(Dependencies.Firebase.platform))
+    implementation(Dependencies.Firebase.ktx)
+    implementation(Dependencies.Firebase.message)
 
     implementation(Dependencies.Android.coreKtx)
     implementation(Dependencies.Compose.ui)

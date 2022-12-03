@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "effectiveLabs"
 
-//rootProject.buildFileName = "build.gradle.kts"
-include (":app")
+// rootProject.buildFileName = "build.gradle.kts"
+include(":app")

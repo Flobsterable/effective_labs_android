@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import ru.flobsterable.effectiveLabs.utils.Callback
 import ru.flobsterable.effectiveLabs.R
 
-
 @Composable
 fun HeroScreenTopBar(onBackClick: Callback) {
     TopAppBar(

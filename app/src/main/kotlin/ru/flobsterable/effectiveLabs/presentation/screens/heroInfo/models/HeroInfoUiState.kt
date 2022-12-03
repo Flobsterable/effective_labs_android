@@ -11,5 +11,3 @@ data class HeroInfoUiState(
         val Empty = HeroInfoUiState()
     }
 }
-
-

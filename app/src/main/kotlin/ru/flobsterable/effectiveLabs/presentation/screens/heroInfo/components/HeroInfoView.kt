@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import ru.flobsterable.effectiveLabs.ui.theme.BlackScrim
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,11 +39,13 @@ fun HeroInfoView(heroInfo: HeroDataUi) {
                 text = heroInfo.name,
                 style = MaterialTheme.typography.h1,
                 color = Color.White,
+                modifier = Modifier.background(BlackScrim)
             )
             Text(
                 text = heroInfo.description,
                 style = MaterialTheme.typography.body1,
                 color = Color.White,
+                modifier = Modifier.background(BlackScrim)
             )
         }
     }
