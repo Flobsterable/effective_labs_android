@@ -7,9 +7,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import ru.flobsterable.effectiveLabs.navigation.AppScreens
 import ru.flobsterable.effectiveLabs.navigation.DETAIL_ARGUMENT_KEY
-import ru.flobsterable.effectiveLabs.presentation.screens.components.ErrorView
 import ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.HeroInfoScreen
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.HeroesListScreen
 import ru.flobsterable.effectiveLabs.presentation.screens.heroInfo.models.HeroInfoViewModel
@@ -18,6 +18,7 @@ import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.Hero
 @Composable
 fun AppNavHost(navController: NavHostController) {
 
+    val uri = "https://www.flobsterable.ru"
     NavHost(
         navController = navController,
         startDestination = AppScreens.HeroesListScreen.route
@@ -28,7 +29,10 @@ fun AppNavHost(navController: NavHostController) {
         }
         composable(
             route = "${AppScreens.HeroInfoScreen.route}/{$DETAIL_ARGUMENT_KEY}",
-            arguments = listOf(navArgument(DETAIL_ARGUMENT_KEY) { type = NavType.IntType })
+            arguments = listOf(navArgument(DETAIL_ARGUMENT_KEY) { type = NavType.IntType }),
+            deepLinks = listOf(
+                navDeepLink { uriPattern = "$uri/{$DETAIL_ARGUMENT_KEY}" }
+            )
         ) {
             val id = it.arguments?.getInt(DETAIL_ARGUMENT_KEY)!!.toInt()
             val viewModel = hiltViewModel<HeroInfoViewModel>()

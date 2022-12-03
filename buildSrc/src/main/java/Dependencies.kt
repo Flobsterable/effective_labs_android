@@ -2,7 +2,7 @@ object Dependencies {
 
     object Compose {
 
-        const val compose_version = "1.4.0-alpha01"
+        const val compose_version = "1.4.0-alpha02"
 
         const val coil = "io.coil-kt:coil-compose:2.2.2"
 
@@ -53,7 +53,7 @@ object Dependencies {
         const val okHttpInterception = "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
         const val converterScalars = "com.squareup.retrofit2:converter-scalars:2.9.0"
-        const val coroutinesAdapter ="com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+        const val coroutinesAdapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
         const val converterMoshi = "com.squareup.retrofit2:converter-moshi:2.9.0"
 
         const val moshi = "com.squareup.moshi:moshi:1.14.0"
@@ -67,5 +67,11 @@ object Dependencies {
         const val annotationProcessor = "androidx.room:room-compiler:$version"
         const val kapt = "androidx.room:room-compiler:$version"
         const val ktx = "androidx.room:room-ktx:$version"
+    }
+
+    object Firebase {
+        const val platform = "com.google.firebase:firebase-bom:31.1.0"
+        const val ktx = "com.google.firebase:firebase-analytics-ktx"
+        const val message = "com.google.firebase:firebase-messaging-ktx"
     }
 }
