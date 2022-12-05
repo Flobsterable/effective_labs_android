@@ -40,7 +40,7 @@ class HeroesListViewModel @Inject constructor(
         _uiState.update { it.copy(isRefreshing = true) }
         viewModelScope.launch{
             repository.getHeroesList().catch {
-                _uiState.update { it.copy(stateUi = StateUi.Error) }
+                _uiState.update { it.copy(stateUi = StateUi.Error, isRefreshing = false) }
             }.collect{ resource->
                 when(resource){
                     is Resource.Error -> _uiState.update { it.copy(isRefreshing = false, stateUi = StateUi.Error) }

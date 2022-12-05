@@ -34,7 +34,8 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
     val ptrState= rememberPullRefreshState(uiState.value.isRefreshing,
         {viewModel.sendEvent(HeroesListEvent.LoadHeroesList)})
 
-    Box( Modifier.pullRefresh(ptrState)) {
+    Box( Modifier.pullRefresh(ptrState).fillMaxSize()) {
+
         Column(
             when (isLandscape()) {
                 true -> Modifier.padding(heroesListColumnPaddingLandscape)
@@ -45,12 +46,13 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ImageTitle()
-            when(uiState.value.stateUi){
+            when (uiState.value.stateUi) {
                 StateUi.Error -> ErrorView()
                 StateUi.Loading -> LoadingView()
                 StateUi.Success -> {
                     HeroesListRow(heroesList = uiState.value.heroesList) {
-                        viewModel.sendEvent(HeroesListEvent.OpenHeroInfo(it)) }
+                        viewModel.sendEvent(HeroesListEvent.OpenHeroInfo(it))
+                    }
                 }
             }
         }

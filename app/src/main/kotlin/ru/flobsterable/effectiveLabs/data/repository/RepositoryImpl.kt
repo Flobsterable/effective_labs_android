@@ -23,7 +23,6 @@ class RepositoryImpl @Inject constructor(
         val data = database.getCharactersList().first()
         if (data.isNotEmpty())
             emit(Resource.Success(data.parserHeroesDataUi()))
-
         when(val result = network.getCharacterList()){
             is Resource.Error -> if(data.isEmpty()) emit(Resource.Error(result.message))
             is Resource.Success -> {

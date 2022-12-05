@@ -10,4 +10,5 @@ class HeroDataEntity(
     val name: String,
     val description: String,
     @ColumnInfo(name = "uri_image")
-    val uriImage: String)
+    val uriImage: String
+)

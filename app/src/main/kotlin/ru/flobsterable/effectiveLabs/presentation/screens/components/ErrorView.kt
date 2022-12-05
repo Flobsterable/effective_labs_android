@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.flobsterable.effectiveLabs.R
 
@@ -24,6 +25,7 @@ fun ErrorView() {
             text = stringResource(id = R.string.text_error),
             color = MaterialTheme.colors.onSecondary,
             style = MaterialTheme.typography.body1,
+            textAlign = TextAlign.Center
         )
     }
 }
