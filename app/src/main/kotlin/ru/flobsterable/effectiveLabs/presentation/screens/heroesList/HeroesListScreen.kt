@@ -1,5 +1,7 @@
 package ru.flobsterable.effectiveLabs.presentation.screens.heroesList
 
+import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,10 +23,16 @@ import ru.flobsterable.effectiveLabs.presentation.screens.components.LoadingView
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.HeroesListRow
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.components.ImageTitle
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListEvent
-import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingLandscape
-import ru.flobsterable.effectiveLabs.ui.consts.heroesListColumnPaddingPortrait
 import ru.flobsterable.effectiveLabs.presentation.screens.heroesList.models.HeroesListViewModel
+import ru.flobsterable.effectiveLabs.presentation.utils.WindowSizeInfo
+import ru.flobsterable.effectiveLabs.presentation.utils.getWindowInfo
 import ru.flobsterable.effectiveLabs.presentation.utils.isLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListCompactPaddingLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListCompactPaddingPortrait
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListExpandedPaddingLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListExpandedPaddingPortrait
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListMediumPaddingLandscape
+import ru.flobsterable.effectiveLabs.ui.consts.heroesListMediumPaddingPortrait
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -34,16 +42,31 @@ fun HeroesListScreen(viewModel: HeroesListViewModel = viewModel()) {
     val ptrState= rememberPullRefreshState(uiState.value.isRefreshing,
         {viewModel.sendEvent(HeroesListEvent.LoadHeroesList)})
 
-    Box( Modifier.pullRefresh(ptrState).fillMaxSize()) {
+    val landscapePadding = when (getWindowInfo().screenWidthInfo) {
+        WindowSizeInfo.WindowSizeType.Compact -> heroesListCompactPaddingLandscape
+        WindowSizeInfo.WindowSizeType.Expanded -> heroesListExpandedPaddingLandscape
+        WindowSizeInfo.WindowSizeType.Medium -> heroesListMediumPaddingLandscape
+    }
 
+    val portraitPadding = when (getWindowInfo().screenHeightInfo) {
+        WindowSizeInfo.WindowSizeType.Compact -> heroesListCompactPaddingPortrait
+        WindowSizeInfo.WindowSizeType.Expanded -> heroesListExpandedPaddingPortrait
+        WindowSizeInfo.WindowSizeType.Medium -> heroesListMediumPaddingPortrait
+    }
+
+    Box(Modifier
+        .pullRefresh(ptrState)
+        .fillMaxSize()) {
         Column(
             when (isLandscape()) {
-                true -> Modifier.padding(heroesListColumnPaddingLandscape)
-                false -> Modifier.padding(heroesListColumnPaddingPortrait)
+                true -> Modifier.padding(landscapePadding)
+                false -> Modifier.padding(portraitPadding)
             }
                 .fillMaxSize()
+                .align(Alignment.Center)
                 .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
         ) {
             ImageTitle()
             when (uiState.value.stateUi) {

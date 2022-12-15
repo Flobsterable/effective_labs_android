@@ -14,3 +14,4 @@ val darkCC = Color(0xFF6E85B2)
 val Pink40 = Color(0xFF7D5260)
 
 val BlackScrim = Color(0f, 0f, 0f, 0.3f)
+val WhiteScrim = Color(0x80FFFFFF)

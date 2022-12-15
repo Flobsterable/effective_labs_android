@@ -3,10 +3,15 @@ package ru.flobsterable.effectiveLabs.ui.consts
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
 
-val heroesListColumnPaddingLandscape = PaddingValues(top = 26.dp, bottom = 16.dp)
-val heroesListColumnPaddingPortrait = PaddingValues(top = 26.dp, bottom = 60.dp)
+val heroesListCompactPaddingLandscape = PaddingValues(top = 16.dp, bottom = 6.dp)
+val heroesListCompactPaddingPortrait = PaddingValues(top = 16.dp, bottom = 6.dp)
+val heroesListMediumPaddingLandscape = PaddingValues(top = 16.dp, bottom = 26.dp)
+val heroesListMediumPaddingPortrait = PaddingValues(top = 46.dp, bottom = 40.dp)
+val heroesListExpandedPaddingLandscape = PaddingValues(top = 16.dp, bottom = 18.dp)
+val heroesListExpandedPaddingPortrait = PaddingValues(top = 100.dp, bottom = 120.dp)
+
 val heroesListImagePaddingLandscape = PaddingValues(top = 8.dp, bottom = 8.dp)
-val heroesListImagePaddingPortrait = PaddingValues(top = 36.dp, bottom = 16.dp)
+val heroesListImagePaddingPortrait = PaddingValues(top = 16.dp, bottom = 16.dp)
 val heroesListItemViewPadding = PaddingValues(16.dp)
 val heroesListView = PaddingValues(bottom = 16.dp)
 

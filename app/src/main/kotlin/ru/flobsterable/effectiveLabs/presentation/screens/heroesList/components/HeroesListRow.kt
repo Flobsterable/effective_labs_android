@@ -57,8 +57,8 @@ fun HeroesListRow(heroesList: List<HeroDataUi>, onClick: IntCallback) {
         contentPadding = PaddingValues(start = padding, end = padding),
         horizontalArrangement = Arrangement.spacedBy(26.dp),
     ) {
-        items(heroesList) { item ->
-            HeroesListItemView(item, Modifier.size(itemWidth.dp,itemHeight.dp), onClick)
+        items(heroesList, key = { it.id }) { item ->
+            HeroesListItemView(item, Modifier.size(itemWidth.dp, itemHeight.dp), onClick)
         }
     }
 }
