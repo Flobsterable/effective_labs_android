@@ -6,36 +6,39 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import ru.flobsterable.effectiveLabs.ui.theme.Effective_labsTheme
+import androidx.core.view.WindowCompat
+import androidx.navigation.compose.rememberNavController
+import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.AndroidEntryPoint
+import ru.flobsterable.effectiveLabs.presentation.models.AppNavHost
+import ru.flobsterable.effectiveLabs.navigation.AppNavigation
+import ru.flobsterable.effectiveLabs.presentation.screens.components.TransparentSystemBars
+import ru.flobsterable.effectiveLabs.ui.theme.EffectiveLabsTheme
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var navigation: AppNavigation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            Effective_labsTheme {
+            FirebaseMessaging.getInstance().subscribeToTopic("all")
+            val navController = rememberNavController()
+            navigation.navHostController = navController
+            EffectiveLabsTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.secondary
+                ) {
+                    TransparentSystemBars()
+                    AppNavHost(navController = navController)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Effective_labsTheme {
-        Greeting("Android")
     }
 }
